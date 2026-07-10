@@ -1,5 +1,5 @@
-#ifndef AUTOCORRELATION_H
-#define AUTOCORRELATION_H
+#ifndef CALCULATIONS_H 
+#define CALCULATIONS_H 
 
 #include <string>
 #include <vector>

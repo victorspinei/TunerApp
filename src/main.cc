@@ -1,6 +1,6 @@
 #include <iostream>
 #include "audio_samples.h"
-#include "autocorrelation.h"
+#include "calculations.h"
 
 int main() {
     unsigned int rate = 44100;
