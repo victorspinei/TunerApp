@@ -52,9 +52,26 @@ int main() {
         std::cerr << snd_strerror(err) << '\n';
         return 1;
     }
-    //for (int i = 0; i < frames; i++)
-    for (int i = 0; i < 5; i++)
-        std::cout << "Sample " << i << " : " << buffer[i] << '\n';
+
+    std::cout << "index, frame\n";
+    float samples[frames];
+    for (int i = 0; i < frames; i++) {
+        samples[i] = buffer[i * 4];
+        std::cout << i << ", " << samples[i] << '\n';
+    }
+
+    /*
+    float min = samples[0];
+    float max = samples[0];
+
+    for (float s : samples) {
+        if (s < min) min = s;
+        if (s > max) max = s;
+    }
+
+    std::cout << "min = " << min
+            << " max = " << max << '\n';
+    */
 
     snd_pcm_close(handle);
 }
