@@ -3,12 +3,12 @@
 #include "calculations.h"
 
 int main() {
-    unsigned int rate = 44100;
+    unsigned int rate = 48000;
     int channels = 4;
 
     auto handle = init("hw:3,0", rate, channels);
     
-    const int frames = 2048;
+    const int frames = 8192;
     float samples[frames];
     float correlation[frames];
 

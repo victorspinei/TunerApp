@@ -7,7 +7,7 @@
 int findPeriod(float arr[], int n, float threshold_value){
     float threshold = threshold_value * arr[0];
 
-    for (int k = 100; k < 600; k++) {
+    for (int k = 120; k < 650; k++) {
         if (arr[k] > arr[k-1] and
             arr[k] > arr[k+1] and
             arr[k] > threshold) {
@@ -19,12 +19,20 @@ int findPeriod(float arr[], int n, float threshold_value){
 }
 
 void autocorrelation(float correlation[], float samples[], int size) {
-    for (int k = 0; k < size; k++) {
+    float energy = 0;
+
+    for(int i = 0; i < size; i++)
+        energy += samples[i] * samples[i];
+
+
+    for(int k = 0; k < size; k++) {
+
         float sum = 0;
-        for (int n = 0; n < size - k - 1; n++) {
-            sum += samples[n] * samples[n + k];
-        }
-        correlation[k] = sum;
+
+        for(int n = 0; n < size-k; n++)
+            sum += samples[n] * samples[n+k];
+
+        correlation[k] = sum / energy;
     }
 }
 

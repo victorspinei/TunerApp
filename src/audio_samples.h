@@ -4,7 +4,7 @@
 #include <alsa/asoundlib.h>
 #include <cstdlib>
 
-snd_pcm_t *init(char *device, unsigned int rate , int channels) {
+snd_pcm_t *init(const char *device, unsigned int rate , int channels) {
     snd_pcm_t *handle;
 
     int err = snd_pcm_open(&handle, device,
