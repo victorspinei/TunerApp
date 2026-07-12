@@ -25,10 +25,16 @@ int main() {
     auto frequency = calculateFrequency(rate, period);
 
     int detected_index = get_detected_note(frequency);
+    float cents = calculate_cents(frequency, note_frequencies[detected_index]);
+    std::string status = get_status(cents);
+
 
     std::cout << "Detected: " << note_names[detected_index] << '\n';
     std::cout << "Frequency: " << frequency << " Hz\n";
     std::cout << "Target: " << note_frequencies[detected_index] << " Hz\n";
+    std::cout << "Offset: " << ((cents > 0 and cents != 0) ? '+' : ' ') << cents << " cents\n";
+    std::cout << "Status: " << status << '\n'; 
+
 
     close_pcm(handle);
 }

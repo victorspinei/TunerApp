@@ -52,4 +52,18 @@ int get_detected_note(float frequency) {
     return target;
 }
 
+float calculate_cents(float frequency, float target_frequency) {
+    float cents = 1200.0f * std::log2(frequency / target_frequency); 
+    return cents;
+}
+
+std::string get_status(float cents) {
+    if (std::abs(cents) <= 2.0) 
+        return "In tune";
+    else if (std::abs(cents) <= 10.0) 
+        return "Slightly off";
+    else 
+        return "Tune up/down";
+}
+
 #endif
