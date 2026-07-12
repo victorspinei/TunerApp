@@ -18,23 +18,48 @@ int main() {
     float samples[frames];
     float correlation[frames];
 
-    read_samples(handle, frames, samples);
-    autocorrelation(correlation, samples, frames);
+    while (true) {
+        read_samples(handle, frames, samples);
 
-    auto period = findPeriod(correlation, frames, 0.3);
-    auto frequency = calculateFrequency(rate, period);
+        autocorrelation(correlation, samples, frames);
 
-    int detected_index = get_detected_note(frequency);
-    float cents = calculate_cents(frequency, note_frequencies[detected_index]);
-    std::string status = get_status(cents);
+        auto period = findPeriod(correlation, frames, 0.3);
+
+        if (period == 0) {
+            continue; // no valid pitch detected
+        }
+
+        auto frequency = calculateFrequency(rate, period);
+
+        int detected_index = get_detected_note(frequency);
+
+        float cents = calculate_cents(
+            frequency,
+            note_frequencies[detected_index]
+        );
+
+        std::string status = get_status(cents);
 
 
-    std::cout << "Detected: " << note_names[detected_index] << '\n';
-    std::cout << "Frequency: " << frequency << " Hz\n";
-    std::cout << "Target: " << note_frequencies[detected_index] << " Hz\n";
-    std::cout << "Offset: " << ((cents > 0 and cents != 0) ? '+' : ' ') << cents << " cents\n";
-    std::cout << "Status: " << status << '\n'; 
+        // update terminal
+        std::cout << "\033[2J\033[H\n"; // clear terminal
 
+        std::cout << "Detected: "
+                  << note_names[detected_index] << '\n';
+
+        std::cout << "Frequency: "
+                  << frequency << " Hz\n";
+
+        std::cout << "Target: "
+                  << note_frequencies[detected_index] << " Hz\n";
+
+        std::cout << "Offset: "
+                  << (cents > 0 ? "+" : "")
+                  << cents << " cents\n";
+
+        std::cout << "Status: "
+                  << status << '\n';
+    }
 
     close_pcm(handle);
 }
