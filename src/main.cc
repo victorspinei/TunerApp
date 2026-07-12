@@ -1,8 +1,14 @@
 #include <iostream>
+#include <algorithm>
+
 #include "audio_samples.h"
 #include "calculations.h"
+#include "note_frequencies.h"
 
 int main() {
+    float reference_frequency = 440.00; // Hz
+    initialize_notes(reference_frequency);
+
     unsigned int rate = 48000;
     int channels = 4;
 
@@ -18,7 +24,11 @@ int main() {
     auto period = findPeriod(correlation, frames, 0.3);
     auto frequency = calculateFrequency(rate, period);
 
+    int detected_index = get_detected_note(frequency);
+
+    std::cout << "Detected: " << note_names[detected_index] << '\n';
     std::cout << "Frequency: " << frequency << " Hz\n";
+    std::cout << "Target: " << note_frequencies[detected_index] << " Hz\n";
 
     close_pcm(handle);
 }
