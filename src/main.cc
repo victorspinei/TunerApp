@@ -40,6 +40,7 @@ int main() {
         }
 
         auto frequency = calculateFrequency(rate, period);
+        frequency = smoothFrequency(frequency);
 
         int detected_index = get_detected_note(frequency);
 

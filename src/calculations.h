@@ -91,4 +91,20 @@ float getRMS(float samples[], int size) {
     return sqrt(sum / size);
 }
 
+float smoothFrequency(float frequency) {
+    const int size = 5;
+    static float history[size] = {};
+    static int index = 0;
+
+    history[index] = frequency;
+    index = (index + 1) % size;
+
+    float sum = 0;
+
+    for (int i = 0; i < size; i++)
+        sum += history[i];
+
+    return sum / size;
+}
+
 #endif
