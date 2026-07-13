@@ -21,12 +21,15 @@ int main() {
     while (true) {
         read_samples(handle, frames, samples);
 
+        removeDC(samples, frames);
+        HannWindow(samples, frames);
+
         autocorrelation(correlation, samples, frames);
 
-        auto period = findPeriod(correlation, frames, 0.3);
+        auto period = findPeriod(correlation, frames, rate, 0.7);
 
-        if (period == 0) {
-            continue; // no valid pitch detected
+        if (period <= 0) {
+            continue; 
         }
 
         auto frequency = calculateFrequency(rate, period);
@@ -41,8 +44,7 @@ int main() {
         std::string status = get_status(cents);
 
 
-        // update terminal
-        std::cout << "\033[2J\033[H\n"; // clear terminal
+        std::cout << "\033[2J\033[H\n"; 
 
         std::cout << "Detected: "
                   << note_names[detected_index] << '\n';
