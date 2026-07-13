@@ -9,7 +9,8 @@ float findPeriod(float arr[], int size, int rate, float threshold_value) {
     int minLag = rate / 2000;
     int maxLag = rate / 40;
 
-    float threshold = threshold_value * arr[0];
+    float threshold = threshold_value;
+    float bestValue = threshold;
 
     int peak = -1;
 
@@ -17,10 +18,10 @@ float findPeriod(float arr[], int size, int rate, float threshold_value) {
     {
         if (arr[k] > arr[k-1] &&
             arr[k] > arr[k+1] &&
-            arr[k] > threshold)
+            arr[k] > bestValue)
         {
+            bestValue = arr[k];
             peak = k;
-            break;
         }
     }
 
@@ -79,6 +80,15 @@ void HannWindow(float samples[], int size) {
         float w = 0.5f * (1.0f - cosf(2.0f * M_PI * i / (size - 1)));
         samples[i] *= w;
     }
+}
+
+float getRMS(float samples[], int size) {
+    float sum = 0;
+
+    for(int i = 0; i < size; i++)
+        sum += samples[i] * samples[i];
+
+    return sqrt(sum / size);
 }
 
 #endif

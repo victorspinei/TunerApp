@@ -22,6 +22,13 @@ int main() {
         read_samples(handle, frames, samples);
 
         removeDC(samples, frames);
+
+        //std::cout << "Rms: " << getRMS(samples, frames) << '\n';
+
+        if (getRMS(samples, frames) < 0.0001) {
+            continue;
+        }
+
         HannWindow(samples, frames);
 
         autocorrelation(correlation, samples, frames);
