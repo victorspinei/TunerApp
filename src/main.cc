@@ -23,8 +23,6 @@ int main() {
 
         removeDC(samples, frames);
 
-        //std::cout << "Rms: " << getRMS(samples, frames) << '\n';
-
         if (getRMS(samples, frames) < 0.0001) {
             continue;
         }
