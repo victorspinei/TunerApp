@@ -10,22 +10,20 @@ class SignalProcessor {
   public:
     SignalProcessor(int size, int rate): size(size), rate(rate), correlation(size), history(5, 0.0f) {}
 
-    float findPeriod(float samples[], float threshold_value) {
+    float findPeriod(float threshold_value) {
         int minLag = rate / 2000;
         int maxLag = rate / 40;
 
-        float threshold = threshold_value;
-        float bestValue = threshold;
-
+        float bestValue = threshold_value;
         int peak = -1;
 
         for (int k = minLag + 1; k < maxLag - 1; k++)
         {
-            if (samples[k] > samples[k-1] &&
-                samples[k] > samples[k+1] &&
-                samples[k] > bestValue)
+            if (correlation[k] > correlation[k-1] &&
+                correlation[k] > correlation[k+1] &&
+                correlation[k] > bestValue)
             {
-                bestValue = samples[k];
+                bestValue = correlation[k];
                 peak = k;
             }
         }
@@ -33,9 +31,9 @@ class SignalProcessor {
         if (peak == -1)
             return -1.0;
 
-        float left = samples[peak - 1];
-        float center = samples[peak];
-        float right = samples[peak + 1];
+        float left = correlation[peak - 1];
+        float center = correlation[peak];
+        float right = correlation[peak + 1];
 
         float denominator = left - 2.0f * center + right;
 
@@ -119,13 +117,13 @@ class SignalProcessor {
 
         autocorrelation(samples);
 
-        float period = findPeriod(samples, 0.7);
+        float period = findPeriod(0.7);
 
         if(period <= 0)
             return 0;
 
         float frequency = calculateFrequency(period);
-        frequency = smoothFrequency(frequency);
+        //frequency = smoothFrequency(frequency);
 
         return frequency;
     }
