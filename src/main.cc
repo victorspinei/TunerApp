@@ -23,9 +23,10 @@ int main(int argc, char *argv[]) {
 
     SignalProcessor processor = SignalProcessor(frames, rate);
 
-    Tuner tuner = Tuner(440.0);
+    float reference_frequency = 440.0;
+    Tuner tuner = Tuner(reference_frequency);
 
-    Window window(handler, processor, tuner, frames);
+    Window window(handler, processor, tuner, frames, reference_frequency);
 
     window.show();
 
