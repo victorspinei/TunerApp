@@ -1,6 +1,4 @@
 # Guitar Tuner App
-- This project has been made for self use and coded with the help of AI, however I tried my best to do the stuff that I can do on my own and to understand and learn what the AI coded.
-
 ## How this app works and What it does
 - This app reads the guitar signal from the amp connected through _USB_ to the laptop with the help of __ALSA library__ and determines the pitch of the signal. After that it compares it to what the pitch is supposed to be using the __equal temperament formula__. And all is shown in the _GUI_ built with __Qt__.
 
@@ -52,3 +50,6 @@ arecord -D hw:3,0 -f FLOAT_LE -c 4
 - Fix bug where the app doesn't open at all when the amp is not plugged in the laptop through USB.
 - Fix audio error bug where the app stops working if it's silence. Apparently this bug disappears when the laptop is connected to the power suply.
 - Add settings and a way to change the hard coded elements such as the device name, frame rate, reference pitch
+
+## Aditional Notes
+- This project has been made for self use and coded with the help of AI, however I tried my best to do the stuff that I can do on my own and to understand and learn what the AI coded.
