@@ -46,7 +46,7 @@ arecord -D hw:3,0 -f FLOAT_LE -c 4
 ![in app screenshot 1](./images/screenshot1.png)
 ![in app screenshot 2](./images/screenshot2.png)
 
-### TODO and Bugs
+#### TODO and Bugs
 - Revisit GUI;
 - Improve frequency detection system. YIN Algorithm;
 - Fix bug where the app doesn't open at all when the amp is not plugged in the laptop through USB.
