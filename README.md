@@ -51,3 +51,4 @@ arecord -D hw:3,0 -f FLOAT_LE -c 4
 - Improve frequency detection system. YIN Algorithm;
 - Fix bug where the app doesn't open at all when the amp is not plugged in the laptop through USB.
 - Fix audio error bug where the app stops working if it's silence. Apparently this bug disappears when the laptop is connected to the power suply.
+- Add settings and a way to change the hard coded elements such as the device name, frame rate, reference pitch
