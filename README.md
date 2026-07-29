@@ -53,3 +53,11 @@ arecord -D hw:3,0 -f FLOAT_LE -c 4
 
 ## Aditional Notes
 - This project has been made for self use and coded with the help of AI, however I tried my best to do the stuff that I can do on my own and to understand and learn what the AI coded.
+
+## Dependencies
+- On Ubuntu/Linux Mint:
+```libasound2-dev qt6-base-dev```
+
+## Building the application
+- After cloning the repository and installing the necessary dependencies run this command:
+```g++ src/main.cc -o tuner.out $(pkg-config --cflags --libs Qt6Widgets) -lasound```
